@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="clickMe('hi')">Click me</button>
+    <button onclick="seeEvent(event)">Event</button>
+    <div id="dd" onclick="seeDiv(event)">oiuyt</div>
+
+    <div>
+        <h6>Widaut Form</h6>
+        <input id="widaut_form" type="text">
+        <button onclick="withoutForm()">Without form</button>
+    </div>
+
+    <form action="">
+        <h5>With Form</h5>
+        <input id="with_form" type="text">
+        <button type="button" onclick="withForm(event)">With Form</button>
+    </form>
+</body>
+</html>
+
+<script>
+    function withForm(ev){
+        // ev.preventDefault();
+        console.log(with_form.value);
+    }
+    function withoutForm(){
+        console.log(widaut_form.value);
+    }
+    function clickMe(params){
+        console.log(params + " Somebody");
+    }
+
+    function seeEvent(pp){
+        console.log(pp.target);
+        pp.target.innerHTML = "Changed";
+        pp.target.style.backgroundColor = "blue"
+    }
+    document.getElementById("dd").style.color = "blue"
+    function seeDiv(prt){
+        prt.target.style.border = "2px solid green"
+        // prt.target.borderStyle = "solid"
+        // prt.target.borderWidth = "2px"
+        // prt.target.borderColor = "yellow"
+    }
+</script>
