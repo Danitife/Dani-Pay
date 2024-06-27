@@ -86,6 +86,7 @@
     function regUser(ev) {
         ev.preventDefault();
         let accNumber = Math.floor(Math.random() * 100000);
+        
         firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
             .then((userCredential) => {
                 // Signed in 
@@ -103,7 +104,8 @@
                         acc_Number: accNumber,
                         transaction_pin: null,
                         email: user.email,
-                        wallet: 20000
+                        wallet: 20000,
+                        transaction_history: []
                     })
                         .then(() => {
                             console.log("Document successfully written!");

@@ -145,21 +145,21 @@
                     wallet: receiver.wallet + Number(amount.value)
                 })
                     .then(() => {
-                        db.collection("transaction_history").doc().set({
-                            currentUser: `You transferred ${amount.value} to ${receiver.name}`,
-                            receiver: `You received ${amount.value} from ${currentUser.name}`,
-                            currentUserId: currentUserId,
-                            receiverId: receiverId
-                        })
-                            .then(() => {
-                                console.log("Document successfully updated!");
-                                alert("Fund has been sent successfully");
-                                ev.target.innerHTML = "Send"
+                        currentUserRef.update({
+                            transaction_history: firebase.firestore.FieldValue.arrayUnion({
+                                amount: Number(amount.value),
+                                message: `You transferred ${Number(amount.value)} to ${receiver.name}`,
+                                transaction_type: "Debit"
                             })
-                            .catch((error) => {
-                                console.error("Error writing document: ", error);
-                            });
-                        
+                        });
+                        receiverRef.update({
+                            transaction_history: firebase.firestore.FieldValue.arrayUnion({
+                                amount: Number(amount.value),
+                                message: `You received ${Number(amount.value)} to ${currentUser.name}`,
+                                transaction_type: "Credit"
+                            })
+                        });
+                        alert("Transaction successfull")
                     })
                     .catch((error) => {
                         // The document probably doesn't exist.
